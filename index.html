@@ -3,67 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Simple Website</title>
+  <title>Rock Paper Scissors</title>
   <style>
-    /* Styles from previous code... */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      margin-top: 50px;
+    }
   </style>
 </head>
 <body>
+  <h1>Rock, Paper, Scissors</h1>
+  <p>Choose your weapon:</p>
+  <button onclick="play('rock')">Rock</button>
+  <button onclick="play('paper')">Paper</button>
+  <button onclick="play('scissors')">Scissors</button>
+  <p id="result"></p>
 
-<header>
-  <h1>Welcome to My Simple Website</h1>
-</header>
+  <script>
+    let wins = 0;
+    let losses = 0;
+    let draws = 0;
 
-<nav>
-  <a href="#home">Home</a> |
-  <a href="#about">About</a> |
-  <a href="#contact">Contact</a>
-</nav>
+    function play(playerChoice) {
+      const choices = ['rock', 'paper', 'scissors'];
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
 
-<section id="home">
-  <h2>Home</h2>
-  <p>This is the home page of my simple website.</p>
-</section>
+      let result;
+      if (playerChoice === computerChoice) {
+        result = "It's a draw!";
+        draws++;
+      } else if (
+        (playerChoice === 'rock' && computerChoice === 'scissors') ||
+        (playerChoice === 'paper' && computerChoice === 'rock') ||
+        (playerChoice === 'scissors' && computerChoice === 'paper')
+      ) {
+        result = 'You win!';
+        wins++;
+      } else {
+        result = 'You lose!';
+        losses++;
+      }
 
-<section id="about">
-  <h2>About</h2>
-  <p>This is the about page of my simple website.</p>
-  <p>Let's play a little game:</p>
-  <button onclick="startGame()">Start Game</button>
-  <p id="game-result"></p>
-</section>
-
-<section id="contact">
-  <h2>Contact</h2>
-  <p>This is the contact page of my simple website.</p>
-</section>
-
-<footer>
-  <p>&copy; 2024 My Simple Website. All rights reserved.</p>
-</footer>
-
-<script>
-  function startGame() {
-    const randomNumber = Math.floor(Math.random() * 10) + 1;
-    const guess = prompt("I'm thinking of a number between 1 and 10. Can you guess what it is?");
-    
-    if (guess === null) {
-      return; // If user cancels the prompt
+      document.getElementById('result').innerHTML = `
+        You chose ${playerChoice}.<br>
+        The computer chose ${computerChoice}.<br>
+        ${result}<br>
+        Wins: ${wins}, Losses: ${losses}, Draws: ${draws}
+      `;
     }
-    
-    const parsedGuess = parseInt(guess);
-    
-    if (isNaN(parsedGuess)) {
-      document.getElementById('game-result').textContent = "Please enter a valid number.";
-    } else if (parsedGuess === randomNumber) {
-      document.getElementById('game-result').textContent = "Congratulations! You guessed the correct number!";
-    } else {
-      document.getElementById('game-result').textContent = `Sorry, the correct number was ${randomNumber}. Try again!`;
-    }
-  }
-</script>
-
-  
+  </script>
 </body>
 </html>
-
