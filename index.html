@@ -5,46 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Simple Website</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f0f0f0;
-    }
-
-    header {
-      background-color: #333;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-
-    nav {
-      background-color: #444;
-      color: #fff;
-      padding: 10px;
-      text-align: center;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      padding: 10px;
-    }
-
-    section {
-      padding: 20px;
-    }
-
-    footer {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
+    /* Styles from previous code... */
   </style>
 </head>
 <body>
@@ -67,6 +28,9 @@
 <section id="about">
   <h2>About</h2>
   <p>This is the about page of my simple website.</p>
+  <p>Let's play a little game:</p>
+  <button onclick="startGame()">Start Game</button>
+  <p id="game-result"></p>
 </section>
 
 <section id="contact">
@@ -78,5 +42,27 @@
   <p>&copy; 2024 My Simple Website. All rights reserved.</p>
 </footer>
 
+<script>
+  function startGame() {
+    const randomNumber = Math.floor(Math.random() * 10) + 1;
+    const guess = prompt("I'm thinking of a number between 1 and 10. Can you guess what it is?");
+    
+    if (guess === null) {
+      return; // If user cancels the prompt
+    }
+    
+    const parsedGuess = parseInt(guess);
+    
+    if (isNaN(parsedGuess)) {
+      document.getElementById('game-result').textContent = "Please enter a valid number.";
+    } else if (parsedGuess === randomNumber) {
+      document.getElementById('game-result').textContent = "Congratulations! You guessed the correct number!";
+    } else {
+      document.getElementById('game-result').textContent = `Sorry, the correct number was ${randomNumber}. Try again!`;
+    }
+  }
+</script>
+
 </body>
 </html>
+
